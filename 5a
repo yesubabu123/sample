@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: ExamplePage(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ExamplePage extends StatelessWidget {
+  const ExamplePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Stateless vs Stateful')),
+      body: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: StaticWidget()),
+          SizedBox(height: 20),
+          CounterWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+// --------- Stateless Widget ---------
+class StaticWidget extends StatelessWidget {
+  const StaticWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const Text('I am Stateless (Never changes)',
+        style: TextStyle(fontSize: 18, color: Colors.blue));
+  }
+}
+
+// --------- Stateful Widget ---------
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+  @override
+  State<CounterWidget> createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int count = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('I am Stateful (Count: $count)',
+            style: const TextStyle(fontSize: 18, color: Colors.green)),
+        ElevatedButton(onPressed: () => setState(() => count++),
+            child: const Text('Add'))
+      ],
+    );
+  }
+}
